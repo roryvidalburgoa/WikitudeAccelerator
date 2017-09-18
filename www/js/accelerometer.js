@@ -1,6 +1,5 @@
 var horizontalMode = 0;
 var verticalMode = 1;
-var id = 'deviceready';
 
 var accelerometerHandle = {
     eventName: "accelModeChanged",
@@ -26,6 +25,7 @@ var accelerometerHandle = {
             //if (app.isArchitectWorldLoaded) {
             if (accelerometerHandle.isHorizontal(acceleration)) {
                 if (accelerometerHandle.currentMode !== horizontalMode) {
+                    accelerometerHandle.currentMode = verticalMode;
                     var event = new CustomEvent(accelerometerHandle.eventName, { detail: horizontalMode });
                     document.dispatchEvent(event);
                     /*
@@ -41,7 +41,7 @@ var accelerometerHandle = {
                 }
             } else {
                 if (accelerometerHandle.currentMode !== verticalMode) {
-                    //console.log("Changed to vertical! %o", acceleration);
+                    accelerometerHandle.currentMode = horizontalMode;
                     var event = new CustomEvent(accelerometerHandle.eventName, { detail: verticalMode });
                     document.dispatchEvent(event);
                     /*

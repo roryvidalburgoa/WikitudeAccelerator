@@ -20,7 +20,6 @@ var app = {
     // Application Constructor
     initialize: function () {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
-        document.addEventListener(accelerometerHandle.eventName, this.onAccelModeChanged.bind(this), false);
     },
 
     // deviceready Event Handler
@@ -47,11 +46,14 @@ var app = {
     startAccelerometer: function () {
         //accelerometerHandle.start();
         accelerometerHandle.startTimer();
+        document.addEventListener(accelerometerHandle.eventName, this.onAccelModeChanged.bind(this), false);
     },
     stopAccelerometer: function () {
+        document.removeEventListener(accelerometerHandle.eventName, this.onAccelModeChanged.bind(this), false);
         accelerometerHandle.stopTimer();
     },
     onAccelModeChanged: function (e) {
+        var id = 'deviceready';
         if (e === verticalMode) {
             var parentElement = document.getElementById(id);
             var isHorizontalElement = parentElement.querySelector('.isHorizontal');
@@ -59,8 +61,6 @@ var app = {
 
             isHorizontalElement.setAttribute('style', 'display:none;');
             isVerticalElement.setAttribute('style', 'display:block;');
-
-            accelerometerHandle.currentMode = verticalMode;
         }
         else if (e === horizontalMode) {
             var parentElement = document.getElementById(id);
@@ -69,8 +69,6 @@ var app = {
 
             isHorizontalElement.setAttribute('style', 'display:block;');
             isVerticalElement.setAttribute('style', 'display:none;');
-
-            accelerometerHandle.currentMode = horizontalMode;
         }
     },
     restartAccelerator: function() {
