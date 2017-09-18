@@ -25,35 +25,15 @@ var accelerometerHandle = {
             //if (app.isArchitectWorldLoaded) {
             if (accelerometerHandle.isHorizontal(acceleration)) {
                 if (accelerometerHandle.currentMode !== horizontalMode) {
-                    accelerometerHandle.currentMode = verticalMode;
+                    accelerometerHandle.currentMode = horizontalMode;
                     var event = new CustomEvent(accelerometerHandle.eventName, { detail: horizontalMode });
                     document.dispatchEvent(event);
-                    /*
-                                        var parentElement = document.getElementById(id);
-                    var isHorizontalElement = parentElement.querySelector('.isHorizontal');
-                    var isVerticalElement = parentElement.querySelector('.isVertical');
-
-                    isHorizontalElement.setAttribute('style', 'display:block;');
-                    isVerticalElement.setAttribute('style', 'display:none;');
-
-                    //app.wikitudePlugin.callJavaScript("World.toggleMapMode();");
-                    accelerometerHandle.currentMode = horizontalMode;*/
                 }
             } else {
                 if (accelerometerHandle.currentMode !== verticalMode) {
-                    accelerometerHandle.currentMode = horizontalMode;
+                    accelerometerHandle.currentMode = verticalMode;
                     var event = new CustomEvent(accelerometerHandle.eventName, { detail: verticalMode });
                     document.dispatchEvent(event);
-                    /*
-                                        var parentElement = document.getElementById(id);
-                                        var isHorizontalElement = parentElement.querySelector('.isHorizontal');
-                                        var isVerticalElement = parentElement.querySelector('.isVertical');
-                    
-                                        isHorizontalElement.setAttribute('style', 'display:none;');
-                                        isVerticalElement.setAttribute('style', 'display:block;');
-                    
-                                        //app.wikitudePlugin.callJavaScript("World.toggleMapMode();");
-                                        accelerometerHandle.currentMode = verticalMode;*/
                 }
             }
             //}
@@ -78,7 +58,7 @@ var accelerometerHandle = {
                     );
                 setTimeout(function () {
                     initTimer();
-                }, 5000);
+                }, accelerometerHandle.options.frequency);
             }
         })();
     },

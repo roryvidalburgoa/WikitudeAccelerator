@@ -20,6 +20,8 @@ var app = {
     // Application Constructor
     initialize: function () {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
+        var rb = document.getElementById('restartButton');
+        rb.addEventListener('click', this.restartAccelerator.bind(this), false);
     },
 
     // deviceready Event Handler
@@ -53,17 +55,19 @@ var app = {
         accelerometerHandle.stopTimer();
     },
     onAccelModeChanged: function (e) {
-        var id = 'deviceready';
-        if (e === verticalMode) {
-            var parentElement = document.getElementById(id);
+        var panelId = 'deviceready';
+        if (e.detail === verticalMode) {
+            console.log("Change to vertical mode.");
+            var parentElement = document.getElementById(panelId);
             var isHorizontalElement = parentElement.querySelector('.isHorizontal');
             var isVerticalElement = parentElement.querySelector('.isVertical');
 
             isHorizontalElement.setAttribute('style', 'display:none;');
             isVerticalElement.setAttribute('style', 'display:block;');
         }
-        else if (e === horizontalMode) {
-            var parentElement = document.getElementById(id);
+        else if (e.detail === horizontalMode) {
+            console.log("Change to horizontal mode.");
+            var parentElement = document.getElementById(panelId);
             var isHorizontalElement = parentElement.querySelector('.isHorizontal');
             var isVerticalElement = parentElement.querySelector('.isVertical');
 
@@ -73,9 +77,7 @@ var app = {
     },
     restartAccelerator: function() {
         this.stopAccelerometer();
-        setTimeout(function() {
-            this.startAccelerometer();
-        }, 10000);
+        setTimeout(this.startAccelerometer, 10000);
     }
 };
 
